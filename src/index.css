@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-base: #020617;
+  --color-base-alternate: #0f172a;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-accent: #38bdf8;
+  --color-text-main: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-card-bg: rgba(15, 23, 42, 0.5); /* bg-slate-900/50 */
+  --color-card-border: rgba(255, 255, 255, 0.08); /* border-white/10 equivalent roughly */
+  --font-inter: "Inter", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-base);
+    color: var(--color-text-main);
+    font-family: var(--font-inter);
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-poppins);
+  }
+}
+
+@layer utilities {
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  
+  .bg-radial-lighting {
+    background: radial-gradient(circle at top, rgba(59, 130, 246, 0.15), transparent 60%);
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+  }
+  
+  .card-lift {
+    transition: all 0.3s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 10px rgba(59, 130, 246, 0.1);
+  }
+}
