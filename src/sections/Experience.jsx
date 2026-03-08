@@ -1,24 +1,27 @@
 import React from 'react';
 import { experienceList } from '../data/portfolioData';
+import Reveal from '../components/Reveal';
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-24 bg-base relative border-t border-card-border/30 overflow-hidden">
+    <section id="experience" className="py-24 bg-transparent relative border-t border-card-border/30 overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-1/2 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none transform -translate-y-1/2 translate-x-1/2"></div>
       
       <div className="container mx-auto px-6 md:px-12 relative z-10 max-w-7xl">
-        <h2 className="text-3xl md:text-5xl font-bold font-poppins text-white mb-16 text-center">
-          My Experience
-        </h2>
+        <Reveal>
+          <h2 className="text-3xl md:text-5xl font-bold font-poppins text-white mb-16 text-center">
+            My Experience
+          </h2>
+        </Reveal>
         
         <div className="max-w-4xl mx-auto">
           <div className="space-y-12">
             {experienceList.map((exp, index) => (
-              <div 
+              <Reveal 
                 key={index}
-                className="relative pl-8 md:pl-0 animate-[fadeIn_0.5s_ease-out_both]"
-                style={{ animationDelay: `${index * 200}ms` }}
+                delay={index * 200}
+                className="relative pl-8 md:pl-0"
               >
                 {/* Timeline line (desktop) */}
                 <div className="hidden md:block absolute left-1/2 top-0 bottom-[-3rem] w-px bg-card-border transform -translate-x-1/2 last:bottom-0"></div>
@@ -57,7 +60,7 @@ const Experience = () => {
                   {/* Empty space for alternating layout */}
                   <div className="hidden md:block w-[45%]"></div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

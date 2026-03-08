@@ -61,5 +61,5 @@ export const experienceList = [
 ];
 
 export const techStackList = [
-  "HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "Laravel", "Git", "Figma", "MySQL", "PHP", "Flutter", "Dart", "Bootstrap", "Next Js", "TypeScript", "Vue Js", "Quasar"
+  "HTML", "CSS", "JavaScript", "React Js", "Tailwind CSS", "Laravel", "Git", "Figma", "MySQL", "PHP", "Flutter", "Dart", "Bootstrap", "Next Js", "TypeScript", "Vue Js", "Quasar"
 ];
