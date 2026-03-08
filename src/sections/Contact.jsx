@@ -76,7 +76,7 @@ const Contact = () => {
           
           <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-slate-500 text-sm">
-              © {new Date().getFullYear()} Dandy Wiguna. All rights reserved.
+              © {new Date().getFullYear()} Dandy Rama Wiguna. All rights reserved.
             </p>
             <div className="flex gap-4 text-sm text-slate-500">
               <span className="hover:text-slate-300 cursor-pointer transition-colors">Privacy Policy</span>
