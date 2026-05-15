@@ -54,7 +54,7 @@ const ProjectCard = ({ title, description, tags, demoLink, githubLink, image }) 
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 to-transparent"></div>
           </div>
           
-          <div className="px-6 pb-6 flex-1 flex flex-col justify-between overflow-y-auto custom-scrollbar">
+          <div className="px-6 pb-6 flex-1 flex flex-col justify-between overflow-y-auto no-scrollbar">
             <div className="mb-4">
               <h3 className="text-xl font-bold font-poppins text-white mb-2">{title}</h3>
               <p className="text-slate-300 text-sm leading-relaxed">

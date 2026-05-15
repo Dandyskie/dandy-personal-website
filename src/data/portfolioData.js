@@ -5,6 +5,7 @@ export const projectsList = [
     tags: ["Laravel", "React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
+    image: "/public/library.png",
   },
   {
     title: "DigitalCare Management System",
@@ -12,13 +13,15 @@ export const projectsList = [
     tags: ["Laravel", "Vue Js", "Quasar"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
+    image: "/public/dgcare.png",
   },
   {
     title: "PPLG2PUNK Class Website",
     description: "A class profile website created to showcase information about students, organizational structure, and class activities. The website includes a gallery, student profiles, and structured content to present the identity and achievements of the class in a modern and responsive interface.",
     tags: ["React Js", "Tailwind CSS"],
-    demoLink: "#",
+    demoLink: "https://pplg2punk.vercel.app",
     githubLink: "https://github.com/Dandyskie",
+    image: "/public/class.png",
   },
   {
     title: "Safe Payment Guard Landing Page",
@@ -26,20 +29,31 @@ export const projectsList = [
     tags: ["HTML", "CSS", "Bootstrap"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
+    image: "/public/spg.png",
   },
   {
-    title: "MyFurniture Landing Page",
-    description: "A responsive landing page for a furniture business that highlights featured products, company information, and promotional content. The website focuses on clean layout design and smooth user experience across different devices.",
-    tags: ["HTML", "CSS", "Bootstrap", "JavaScript"],
+    title: "Batrisha Make Up",
+    description: "Batrisha Makeup is a modern landing page created to showcase a makeup artist service professionally online. The website provides information about services, portfolios, and contact details with a clean and responsive design to help attract potential clients and improve online presence.",
+    tags: ["React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
+    image: "/public/batrish.png",
   },
   {
-    title: "Dandy Personal Website V1",
+    title: "Personal Website V1",
     description: "The first version of my personal portfolio website built to introduce myself as a developer and showcase my projects. The website presents my profile, skills, and project portfolio in a simple and responsive interface.",
-    tags: ["HTML", "Tailwind CSS"],
+    tags: ["React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
+    image: "/public/porto1.png",
+  },
+  {
+    title: "Maskoling Car Coffe",
+    description: "Maskoling Car Coffee is a modern landing page project created for a street coffee business to help introduce and promote the brand online. The website provides information about the menu, business concept, location, and contact details with a clean and responsive design, making it easier for customers to discover and learn more about the business.",
+    tags: ["HTML", "CSS", ],
+    demoLink: "#",
+    githubLink: "https://github.com/Dandyskie",
+    image: "/public/mcc.png",
   },
 ];
 
@@ -57,9 +71,9 @@ export const experienceList = [
     period: "2023 - Present",
     description: "Learning full-stack web development principles, database design, and modern frontend frameworks through practical project-based assignments.",
     skills: ["HTML", "CSS", "PHP", "Laravel", "MySQL", "Flutter", "Dart", "Bootstrap", "JavaScript", "Figma"]
-  }
+  },
 ];
 
 export const techStackList = [
-  "HTML", "CSS", "JavaScript", "React Js", "Tailwind CSS", "Laravel", "Git", "Figma", "MySQL", "PHP", "Flutter", "Dart", "Bootstrap", "Next Js", "TypeScript", "Vue Js", "Quasar"
+  "HTML", "CSS", "JavaScript", "React Js", "Tailwind CSS", "Laravel", "Git", "Figma", "MySQL", "PHP", "Flutter", "Dart", "Bootstrap", "Next Js", "TypeScript", "Vue Js", "Quasar" , "Astro Js", "Firebase" , "React Native", "Swift", "Python"
 ];
