@@ -5,7 +5,7 @@ export const projectsList = [
     tags: ["Laravel", "React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
-    image: "/public/library.png",
+    image: "/library.png",
   },
   {
     title: "DigitalCare Management System",
@@ -13,7 +13,7 @@ export const projectsList = [
     tags: ["Laravel", "Vue Js", "Quasar"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
-    image: "/public/dgcare.png",
+    image: "/dgcare.png",
   },
   {
     title: "PPLG2PUNK Class Website",
@@ -21,7 +21,7 @@ export const projectsList = [
     tags: ["React Js", "Tailwind CSS"],
     demoLink: "https://pplg2punk.vercel.app",
     githubLink: "https://github.com/Dandyskie",
-    image: "/public/class.png",
+    image: "/class.png",
   },
   {
     title: "Safe Payment Guard Landing Page",
@@ -29,7 +29,7 @@ export const projectsList = [
     tags: ["HTML", "CSS", "Bootstrap"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
-    image: "/public/spg.png",
+    image: "/spg.png",
   },
   {
     title: "Batrisha Make Up",
@@ -37,7 +37,7 @@ export const projectsList = [
     tags: ["React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
-    image: "/public/batrish.png",
+    image: "/batrish.png",
   },
   {
     title: "Personal Website V1",
@@ -53,7 +53,7 @@ export const projectsList = [
     tags: ["HTML", "CSS", ],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
-    image: "/public/mcc.png",
+    image: "/mcc.png",
   },
 ];
 
