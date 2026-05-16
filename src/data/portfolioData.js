@@ -45,7 +45,7 @@ export const projectsList = [
     tags: ["React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
-    image: "/public/porto1.png",
+    image: "/porto1.png",
   },
   {
     title: "Maskoling Car Coffe",
