@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { experienceList, educationList, skillsCategories } from '../data/portfolioData';
 import { Calendar, Briefcase, GraduationCap } from 'lucide-react';
+import ScrollReveal from '../components/ScrollReveal';
 
 const ExperiencePage = () => {
   return (
@@ -26,24 +27,26 @@ const ExperiencePage = () => {
             </h2>
             <div className="flex flex-col gap-6 pl-2 border-l border-border-custom">
               {experienceList.map((exp, idx) => (
-                <div key={idx} className="relative pl-6 flex flex-col gap-2">
-                  <div className="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-primary" />
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-1">
-                    <div>
-                      <h3 className="font-space text-lg font-bold text-text-main">{exp.role}</h3>
-                      <p className="text-sm font-semibold text-primary">{exp.company}</p>
+                <ScrollReveal key={idx} delay={idx * 0.1} yOffset={20}>
+                  <div className="relative pl-6 flex flex-col gap-2">
+                    <div className="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-primary" />
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-1">
+                      <div>
+                        <h3 className="font-space text-lg font-bold text-text-main">{exp.role}</h3>
+                        <p className="text-sm font-semibold text-primary">{exp.company}</p>
+                      </div>
+                      <span className="text-xs text-text-muted flex items-center gap-1 font-mono">
+                        <Calendar className="w-3.5 h-3.5" /> {exp.period}
+                      </span>
                     </div>
-                    <span className="text-xs text-text-muted flex items-center gap-1 font-mono">
-                      <Calendar className="w-3.5 h-3.5" /> {exp.period}
-                    </span>
+                    <p className="text-sm text-text-muted leading-relaxed">{exp.description}</p>
+                    <div className="flex flex-wrap gap-1.5 mt-1">
+                      {exp.skills.map((s, sIdx) => (
+                        <span key={sIdx} className="text-[10px] px-2 py-0.5 bg-text-muted/10 text-text-muted rounded font-mono">{s}</span>
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-sm text-text-muted leading-relaxed">{exp.description}</p>
-                  <div className="flex flex-wrap gap-1.5 mt-1">
-                    {exp.skills.map((s, sIdx) => (
-                      <span key={sIdx} className="text-[10px] px-2 py-0.5 bg-text-muted/10 text-text-muted rounded font-mono">{s}</span>
-                    ))}
-                  </div>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -54,22 +57,24 @@ const ExperiencePage = () => {
             </h2>
             <div className="flex flex-col gap-6 pl-2 border-l border-border-custom">
               {educationList.map((edu, idx) => (
-                <div key={idx} className="relative pl-6 flex flex-col gap-2">
-                  <div className="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-primary" />
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-1">
-                    <div>
-                      <h3 className="font-space text-lg font-bold text-text-main">{edu.school}</h3>
-                      <p className="text-sm font-semibold text-primary">{edu.field}</p>
+                <ScrollReveal key={idx} delay={idx * 0.1} yOffset={20}>
+                  <div className="relative pl-6 flex flex-col gap-2">
+                    <div className="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-primary" />
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-1">
+                      <div>
+                        <h3 className="font-space text-lg font-bold text-text-main">{edu.school}</h3>
+                        <p className="text-sm font-semibold text-primary">{edu.field}</p>
+                      </div>
+                      <span className="text-xs text-text-muted flex items-center gap-1 font-mono">
+                        <Calendar className="w-3.5 h-3.5" /> {edu.period}
+                      </span>
                     </div>
-                    <span className="text-xs text-text-muted flex items-center gap-1 font-mono">
-                      <Calendar className="w-3.5 h-3.5" /> {edu.period}
+                    <p className="text-sm text-text-muted">{edu.description}</p>
+                    <span className="text-xs font-mono font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded w-fit mt-1">
+                      Final Grade: {edu.grade}
                     </span>
                   </div>
-                  <p className="text-sm text-text-muted">{edu.description}</p>
-                  <span className="text-xs font-mono font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded w-fit mt-1">
-                    Final Grade: {edu.grade}
-                  </span>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -79,15 +84,17 @@ const ExperiencePage = () => {
         <div className="flex flex-col gap-6">
           <h2 className="text-2xl font-space font-bold text-text-main">Skills Categories</h2>
           <div className="flex flex-col gap-4">
-            {Object.entries(skillsCategories).map(([cat, list]) => (
-              <div key={cat} className="glassmorphism p-4 rounded-xl flex flex-col gap-2.5">
-                <h3 className="font-space text-sm font-bold text-text-main border-b border-border-custom pb-1.5">{cat}</h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {list.map((skill) => (
-                    <span key={skill} className="text-xs px-2.5 py-1 bg-primary/10 text-primary rounded-md font-mono">{skill}</span>
-                  ))}
+            {Object.entries(skillsCategories).map(([cat, list], idx) => (
+              <ScrollReveal key={cat} delay={idx * 0.08} yOffset={15}>
+                <div className="glassmorphism p-4 rounded-xl flex flex-col gap-2.5">
+                  <h3 className="font-space text-sm font-bold text-text-main border-b border-border-custom pb-1.5">{cat}</h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {list.map((skill) => (
+                      <span key={skill} className="text-xs px-2.5 py-1 bg-primary/10 text-primary rounded-md font-mono">{skill}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
