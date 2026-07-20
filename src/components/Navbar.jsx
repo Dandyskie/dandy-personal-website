@@ -1,124 +1,200 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Sun, Moon, Search, Menu, X } from 'lucide-react';
+import CommandPalette from './CommandPalette';
 
 const Navbar = () => {
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [isDark, setIsDark] = useState(true); // Cyber-dark defaults to true
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+  const [scrollPercent, setScrollPercent] = useState(0);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [showNavbar, setShowNavbar] = useState(true);
+
+  // Sync HTML class on load
+  useEffect(() => {
+    document.documentElement.classList.add('dark');
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDark(prev => {
+      const next = !prev;
+      if (next) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      return next;
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
       
-      const sections = ['home', 'skills', 'projects', 'experience', 'contact'];
-      let current = '';
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element && window.scrollY >= (element.offsetTop - 200)) {
-          current = section;
-        }
+      // Smart Hide/Reveal Navbar
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setShowNavbar(false); // Hide on scroll down
+      } else {
+        setShowNavbar(true); // Reveal on scroll up
       }
-      if (current) setActiveSection(current);
+      
+      setIsScrolled(currentScrollY > 20);
+      setLastScrollY(currentScrollY);
+
+      // Progress bar percentage calculation
+      const totalScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScrollHeight > 0) {
+        setScrollPercent((currentScrollY / totalScrollHeight) * 100);
+      } else {
+        setScrollPercent(0);
+      }
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
+  // Command palette hotkey listener
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsPaletteOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home', id: 'home' },
-    { name: 'Projects', href: '#projects', id: 'projects' },
-    { name: 'Experience', href: '#experience', id: 'experience' },
-    { name: 'Contact', href: '#contact', id: 'contact' },
+    { name: 'Home', path: '/' },
+    { name: 'Projects', path: '/projects' },
+    { name: 'Experience', path: '/experience' },
+    { name: 'Contact', path: '/contact' },
   ];
 
-  const scrollToSection = (e, href) => {
-    e.preventDefault();
-    setIsMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      const topOffset = element.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: topOffset, behavior: 'smooth' });
-    }
-  };
-
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
-        isScrolled 
-          ? 'bg-slate-900/80 backdrop-blur-lg border-b border-white/10 py-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)]' 
-          : 'bg-transparent py-6'
-      }`}
-    >
-      <div className="container max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <a 
-          href="#home" 
-          onClick={(e) => scrollToSection(e, '#home')}
-          className="text-2xl font-bold font-poppins text-white tracking-tight"
-        >
-          Dandy<span className="text-primary">.dev</span>
-        </a>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name}
-              href={link.href}
-              onClick={(e) => scrollToSection(e, link.href)}
-              className={`font-poppins text-base font-medium transition-all duration-300 ease-in-out relative group ${
-                activeSection === link.id ? 'text-white' : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              {link.name}
-              <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ease-in-out ${
-                activeSection === link.id ? 'w-full' : 'w-0 group-hover:w-full'
-              }`}></span>
-            </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={(e) => scrollToSection(e, '#contact')}
-            className="font-poppins px-5 py-2.5 rounded-full bg-primary hover:bg-primary-hover text-white transition-all duration-300 ease-in-out text-base font-medium shadow-md hover:shadow-lg"
-          >
-            Let's Talk
-          </a>
-        </div>
-
-        {/* Mobile Toggle */}
-        <button 
-          className="md:hidden text-text-muted hover:text-white transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMobileMenuOpen ? (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-          )}
-        </button> 
-      </div>
-
-      {/* Mobile Menu */}
+    <>
+      {/* Scroll Progress Bar */}
       <div 
-        className={`md:hidden absolute top-full left-0 w-full bg-slate-900/95 backdrop-blur-xl border-b border-white/10 overflow-hidden transition-all duration-300 ease-in-out ${
-          isMobileMenuOpen ? 'max-h-96 py-6 shadow-xl' : 'max-h-0 py-0'
+        className="fixed top-0 left-0 h-1 bg-primary z-[60] transition-all duration-100" 
+        style={{ width: `${scrollPercent}%` }}
+      />
+      
+      <nav 
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
+          showNavbar ? 'translate-y-0' : '-translate-y-full'
+        } ${
+          isScrolled 
+            ? 'py-4 glassmorphism border-b border-border-custom shadow-md' 
+            : 'py-6 bg-transparent'
         }`}
       >
-        <div className="flex flex-col items-center gap-6">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name}
-              href={link.href}
-              onClick={(e) => scrollToSection(e, link.href)}
-              className={`font-poppins transition-colors text-lg font-medium ease-in-out ${
-                activeSection === link.id ? 'text-primary' : 'text-white hover:text-primary'
-              }`}
+        <div className="container max-w-7xl mx-auto px-6 flex justify-between items-center">
+          <Link 
+            to="/"
+            className="text-2xl font-bold font-space text-text-main tracking-tight hover:scale-105 transition-transform"
+          >
+            Dandy<span className="text-primary">.dev</span>
+          </Link>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.name}
+                to={link.path}
+                className={`font-space text-sm font-medium transition-all duration-300 relative group ${
+                  location.pathname === link.path ? 'text-primary text-glow font-bold' : 'text-text-muted hover:text-text-main'
+                }`}
+              >
+                {link.name}
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                  location.pathname === link.path ? 'w-full' : 'w-0 group-hover:w-full'
+                }`} />
+              </Link>
+            ))}
+            
+            {/* Cmd+K trigger */}
+            <button 
+              onClick={() => setIsPaletteOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-text-muted hover:text-text-main rounded-md border border-border-custom glassmorphism transition-all cursor-pointer"
+              title="Search / Actions"
             >
-              {link.name}
-            </a>
-          ))}
+              <Search className="w-3.5 h-3.5" />
+              <kbd className="font-mono text-[10px]">Ctrl+K</kbd>
+            </button>
+
+            {/* Theme toggler */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full border border-border-custom hover:bg-primary/10 transition-colors text-text-main cursor-pointer"
+              aria-label="Toggle Theme"
+            >
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-650" />}
+            </button>
+          </div>
+
+          {/* Mobile toggles */}
+          <div className="flex md:hidden items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="p-1.5 rounded-full border border-border-custom text-text-main cursor-pointer"
+              aria-label="Toggle Theme"
+            >
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-650" />}
+            </button>
+            <button
+              onClick={() => setIsPaletteOpen(true)}
+              className="p-1.5 rounded-full border border-border-custom text-text-main cursor-pointer"
+              aria-label="Search Console"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+            <button 
+              className="text-text-main cursor-pointer"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+
+        {/* Mobile Menu */}
+        <div 
+          className={`md:hidden absolute top-full left-0 w-full glassmorphism border-b border-border-custom overflow-hidden transition-all duration-300 ease-in-out ${
+            isMobileMenuOpen ? 'max-h-64 py-6 shadow-xl' : 'max-h-0 py-0'
+          }`}
+        >
+          <div className="flex flex-col items-center gap-6">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.name}
+                to={link.path}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`font-space text-base font-medium transition-colors ${
+                  location.pathname === link.path ? 'text-primary text-glow font-bold' : 'text-text-main hover:text-primary'
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* Command Palette Component */}
+      <CommandPalette 
+        isOpen={isPaletteOpen} 
+        onClose={() => setIsPaletteOpen(false)} 
+        toggleTheme={toggleTheme} 
+        isDark={isDark} 
+      />
+    </>
   );
 };
 
