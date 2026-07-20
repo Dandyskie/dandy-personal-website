@@ -1,17 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-base: #020617;
-  --color-base-alternate: #0f172a;
+  --font-space: "Space Grotesk", sans-serif;
+  --font-archivo: "Archivo", sans-serif;
+
+  /* Theme colors */
   --color-primary: #3b82f6;
   --color-primary-hover: #2563eb;
   --color-accent: #38bdf8;
-  --color-text-main: #f8fafc;
-  --color-text-muted: #94a3b8;
-  --color-card-bg: rgba(15, 23, 42, 0.5); /* bg-slate-900/50 */
-  --color-card-border: rgba(255, 255, 255, 0.08); /* border-white/10 equivalent roughly */
-  --font-inter: "Inter", sans-serif;
-  --font-poppins: "Poppins", sans-serif;
+  
+  /* Dynamic theme mapping */
+  --color-bg-app: var(--bg-app);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-border-custom: var(--border-custom);
+  --color-card-bg: var(--card-bg);
+}
+
+:root {
+  --bg-app: #fafafa;
+  --text-main: #09090b;
+  --text-muted: #71717a;
+  --border-custom: rgba(9, 9, 11, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.7);
+}
+
+.dark {
+  --bg-app: #020617;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-custom: rgba(255, 255, 255, 0.08);
+  --card-bg: rgba(15, 23, 42, 0.4);
 }
 
 @layer base {
@@ -19,22 +39,30 @@
     scroll-behavior: smooth;
   }
   body {
-    background-color: var(--color-base);
-    color: var(--color-text-main);
-    font-family: var(--font-inter);
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    font-family: var(--font-archivo);
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-poppins);
+    font-family: var(--font-space);
+    letter-spacing: -0.02em;
   }
 }
 
 @layer utilities {
   .bg-grid-pattern {
     background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
     background-size: 40px 40px;
+  }
+  :root {
+    --grid-color: rgba(9, 9, 11, 0.03);
+  }
+  .dark {
+    --grid-color: rgba(255, 255, 255, 0.02);
   }
   
   .bg-radial-lighting {
@@ -44,25 +72,11 @@
   .text-glow {
     text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
   }
-  
-  .card-lift {
-    transition: all 0.3s ease;
-  }
-  .card-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 10px rgba(59, 130, 246, 0.1);
-  }
-  
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-  
-  .backface-hidden {
-    backface-visibility: hidden;
-  }
-  
-  .rotate-y-180 {
-    transform: rotateY(180deg);
+
+  .glassmorphism {
+    backdrop-filter: blur(12px);
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-custom);
   }
   
   .no-scrollbar::-webkit-scrollbar {
