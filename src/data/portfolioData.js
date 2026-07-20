@@ -9,7 +9,7 @@ export const projectsList = [
     tags: ["Laravel", "React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
-    image: "/library.png",
+    image: "/library-information-system.png",
     category: "Frontend"
   },
   {
@@ -20,7 +20,7 @@ export const projectsList = [
     tags: ["Laravel", "Vue Js", "Quasar"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
-    image: "/dgcare.png",
+    image: "/digital-care-information-system.png",
     category: "Frontend"
   },
   {
@@ -31,7 +31,7 @@ export const projectsList = [
     tags: ["React Js", "Tailwind CSS"],
     demoLink: "https://pplg2punk.vercel.app",
     githubLink: "https://github.com/Dandyskie",
-    image: "/class.png",
+    image: "/pplg2-class-website.png",
     category: "Frontend"
   },
   {
@@ -53,7 +53,7 @@ export const projectsList = [
     tags: ["React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
-    image: "/batrish.png",
+    image: "/batrisha-mua.png",
     category: "Frontend"
   },
   {
@@ -64,7 +64,7 @@ export const projectsList = [
     tags: ["React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
-    image: "/porto1.png",
+    image: "/web-porto1.png",
     category: "Frontend"
   },
   {
@@ -75,7 +75,29 @@ export const projectsList = [
     tags: ["HTML", "CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
-    image: "/mcc.png",
+    image: "/maskoling-car-coffee.png",
+    category: "Frontend"
+  },
+  {
+    title: "Abon PS Mas Landing Page",
+    description: "A digital showcase landing page built to promote local snack variants and direct online ordering.",
+    problem: "The business lacked a central menu catalog for clients to browse flavors, read testimonials, and initiate WhatsApp checkout steps.",
+    solution: "Developed a clean product showcase page with dynamic flavor grids, pricing information, and integrated messaging triggers.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    demoLink: "#",
+    githubLink: "https://github.com/Dandyskie",
+    image: "/abon-ps-mas.png",
+    category: "Frontend"
+  },
+  {
+    title: "Peta Adventure Portal",
+    description: "An interactive adventure map portal allowing users to explore hiking routes and browse travel hotspots.",
+    problem: "Adventure travelers had to toggle multiple static lists to locate camping spots, reviews, and route conditions.",
+    solution: "Created a responsive map application displaying travel locations, custom filters, and detail panels with travel photos.",
+    tags: ["React Js", "Tailwind CSS"],
+    demoLink: "#",
+    githubLink: "https://github.com/Dandyskie",
+    image: "/peta-adventure.png",
     category: "Frontend"
   }
 ];
