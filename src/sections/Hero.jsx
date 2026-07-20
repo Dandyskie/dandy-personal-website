@@ -2,19 +2,21 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Mail } from 'lucide-react';
+import LanyardCard from '../components/LanyardCard';
+import MobileGlowCard from '../components/MobileGlowCard';
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden py-10 md:py-16">
-      <div className="absolute inset-0 bg-radial-lighting opacity-30 pointer-events-none" />
+    <section className="relative overflow-hidden py-6 md:py-12">
+      <div className="absolute inset-0 bg-radial-lighting opacity-35 pointer-events-none" />
       
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-10 relative z-10">
         {/* Text Area */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left gap-6"
+          className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left gap-5"
         >
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-primary bg-primary/10 rounded-full border border-primary/20 font-space uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" /> Available for opportunities
@@ -76,48 +78,24 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Visual Mockup Card */}
+        {/* Desktop Visual Lanyard Card */}
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
-          className="hidden lg:block flex-1 max-w-md relative group"
+          className="hidden lg:block flex-1"
         >
-          <div className="absolute inset-x-0 -bottom-6 h-64 bg-primary/20 blur-3xl rounded-full transform group-hover:bg-primary/30 transition-colors duration-500" />
-          <div className="relative glassmorphism rounded-2xl shadow-2xl overflow-hidden border border-border-custom">
-            {/* Header */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-border-custom bg-black/5">
-              <div className="w-3 h-3 rounded-full bg-red-500/80" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-              <div className="w-3 h-3 rounded-full bg-green-500/80" />
-            </div>
-            {/* Body */}
-            <div className="p-6 font-mono text-sm leading-relaxed text-text-muted">
-              <p><span className="text-blue-400">import</span> React <span className="text-blue-400">from</span> 'react';</p>
-              <p className="mt-2"><span className="text-blue-400">const</span> Developer = () =&gt; {'{'}</p>
-              <p className="ml-4 mt-2"><span className="text-blue-400">return</span> (</p>
-              <p className="ml-8 text-primary">&lt;Portfolio</p>
-              <p className="ml-12">{"skills={['React', 'Tailwind', 'Laravel']}"}</p>
-              <p className="ml-12">focus="Scalable Frontend Layouts"</p>
-              <p className="ml-8 text-primary">/&gt;</p>
-              <p className="ml-4">);</p>
-              <p>{'}'};</p>
-              <p className="mt-4"><span className="text-blue-400">export default</span> Developer;</p>
-            </div>
-          </div>
-          
-          {/* Floating Performance Indicator */}
-          <div className="absolute -right-6 top-10 bg-card-bg border border-border-custom backdrop-blur-md rounded-xl p-3 shadow-xl transform translate-y-4 group-hover:-translate-y-2 transition-transform duration-700 ease-in-out">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-              </div>
-              <div>
-                <div className="text-xs text-text-muted font-medium">Performance</div>
-                <div className="text-sm font-bold text-text-main">99/100</div>
-              </div>
-            </div>
-          </div>
+          <LanyardCard />
+        </motion.div>
+
+        {/* Mobile Visual Glowing Frame Card */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
+          className="block lg:hidden w-full mt-4"
+        >
+          <MobileGlowCard />
         </motion.div>
       </div>
     </section>
