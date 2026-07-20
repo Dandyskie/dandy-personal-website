@@ -2,20 +2,21 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Mail } from 'lucide-react';
-import LanyardCard from '../components/LanyardCard';
 import MobileGlowCard from '../components/MobileGlowCard';
+import LanyardCard from '../components/LanyardCard';
+
 
 const Hero = () => {
   return (
     <section className="relative overflow-hidden py-6 md:py-12">
-      <div className="absolute inset-0 bg-radial-lighting opacity-35 pointer-events-none" />
+      <div className="absolute inset-0 bg-radial-lighting opacity-35 pointer-events-none hidden md:block" />
       
       <div className="flex flex-col lg:flex-row items-center justify-between gap-10 relative z-10">
         {/* Text Area */}
         <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+          initial={{ opacity: 0, x: -35, scale: 0.97 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ type: "spring", stiffness: 70, damping: 14, mass: 0.7 }}
           className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left gap-5"
         >
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-primary bg-primary/10 rounded-full border border-primary/20 font-space uppercase tracking-wider">
@@ -80,19 +81,19 @@ const Hero = () => {
 
         {/* Desktop Visual Lanyard Card */}
         <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
+          initial={{ opacity: 0, x: 45, rotate: 3, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, rotate: 0, scale: 1 }}
+          transition={{ type: "spring", stiffness: 50, damping: 12, mass: 0.8, delay: 0.15 }}
           className="hidden lg:block flex-1"
         >
-          <LanyardCard />
+          <LanyardCard/>
         </motion.div>
 
         {/* Mobile Visual Glowing Frame Card */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
+          initial={{ opacity: 0, y: 35, scale: 0.93 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ type: "spring", stiffness: 60, damping: 12, mass: 0.8, delay: 0.2 }}
           className="block lg:hidden w-full mt-4"
         >
           <MobileGlowCard />

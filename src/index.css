@@ -9,7 +9,7 @@
   --color-primary: #3b82f6;
   --color-primary-hover: #2563eb;
   --color-accent: #38bdf8;
-  
+
   /* Dynamic theme mapping */
   --color-bg-app: var(--bg-app);
   --color-text-main: var(--text-main);
@@ -64,11 +64,11 @@
   .dark {
     --grid-color: rgba(255, 255, 255, 0.02);
   }
-  
+
   .bg-radial-lighting {
     background: radial-gradient(circle at top, rgba(59, 130, 246, 0.15), transparent 60%);
   }
-  
+
   .text-glow {
     text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
   }
@@ -78,7 +78,7 @@
     background-color: var(--card-bg);
     border: 1px solid var(--border-custom);
   }
-  
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }

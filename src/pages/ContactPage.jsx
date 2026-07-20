@@ -33,8 +33,12 @@ const ContactPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
         {/* Info Column */}
         <div className="md:col-span-2 flex flex-col gap-6">
-          <ScrollReveal delay={0.1} yOffset={25}>
-            <div className="glassmorphism p-6 rounded-xl flex flex-col gap-4">
+          <ScrollReveal variant="fade-right" delay={0.1}>
+            <motion.div 
+              whileHover={{ y: -5, scale: 1.005, boxShadow: "0 8px 25px rgba(59, 130, 246, 0.08)" }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="glassmorphism p-6 rounded-xl flex flex-col gap-4 hover:border-primary/30 transition-colors duration-300"
+            >
               <h3 className="font-space text-lg font-bold text-text-main">Contact Details</h3>
               <p className="text-sm text-text-muted leading-relaxed">
                 I'm active on social channels and check emails regularly.
@@ -57,14 +61,19 @@ const ContactPage = () => {
                   linkedin.com/in/dandy-rama-wiguna
                 </a>
               </div>
-            </div>
+            </motion.div>
           </ScrollReveal>
         </div>
 
         {/* Form Column */}
         <div className="md:col-span-3">
-          <ScrollReveal delay={0.15} yOffset={25}>
-            <form onSubmit={handleSubmit} className="glassmorphism p-6 rounded-xl flex flex-col gap-4">
+          <ScrollReveal variant="fade-left" delay={0.15}>
+            <motion.form 
+              onSubmit={handleSubmit}
+              whileHover={{ y: -5, scale: 1.005, boxShadow: "0 8px 25px rgba(59, 130, 246, 0.08)" }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="glassmorphism p-6 rounded-xl flex flex-col gap-4 hover:border-primary/30 transition-colors duration-300"
+            >
               <h3 className="font-space text-lg font-bold text-text-main">Send a Message</h3>
               
               <div className="flex flex-col gap-1">
@@ -103,14 +112,16 @@ const ContactPage = () => {
                 />
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={submitting}
                 className="mt-2 py-3 rounded-lg bg-primary hover:bg-primary-hover disabled:opacity-50 text-white font-bold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md"
               >
                 {submitting ? 'Sending...' : <><Send className="w-4 h-4" /> Send Message</>}
-              </button>
-            </form>
+              </motion.button>
+            </motion.form>
           </ScrollReveal>
         </div>
       </div>

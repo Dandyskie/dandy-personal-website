@@ -43,10 +43,8 @@ The website will be converted to an SPA utilizing `react-router-dom` for route c
 ### A. Navigation & Theme Toggle
 
 - A responsive smart sticky navbar utilizing Glassmorphism (backdrop-blur). It will hide intelligently when scrolling down to maximize screen estate and reappear instantly when scrolling up.
-  Scroll Progress Indicator: A thin, subtle progress bar at the very top of the viewport that fills from left to right as the user scrolls down the page.
-
-Command Palette (Cmd+K / Ctrl+K): An enterprise-level search modal allowing users to quickly navigate between pages, trigger the theme toggle, or copy contact info via keyboard shortcuts.
-
+- Scroll Progress Indicator: A thin, subtle progress bar at the very top of the viewport that fills from left to right as the user scrolls down the page.
+  -Command Palette (Cmd+K / Ctrl+K): An enterprise-level search modal allowing users to quickly navigate between pages, trigger the theme toggle, or copy contact info via keyboard shortcuts.
 - A theme toggle button that triggers state change from light to dark.
 - Navbar and toggle remain visible across all pages.
 - Transitions between themes will be smooth (using Tailwind utility class transition states).
@@ -54,7 +52,7 @@ Command Palette (Cmd+K / Ctrl+K): An enterprise-level search modal allowing user
 ### B. Home Page (`/`)
 
 - **Hero Section**: Text effect rendering name and profession.
-- **Summary Section**: Displays the user's primary summary text with micro-animations.
+- **Summary Section**: Displays the user's primary summary text with micro-animations. -**GitHub Activity**: A visual component rendering the recent GitHub commit grid (green squares) to visually prove development activity.
 - **Quick Links**: Bento Grid-like layout with interactive card lift leading to different sections of the website.
 
 ### C. Projects Page (`/projects`)

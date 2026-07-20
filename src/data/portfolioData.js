@@ -10,7 +10,7 @@ export const projectsList = [
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
     image: "/library-information-system.png",
-    category: "Frontend"
+    category: "Fullstack"
   },
   {
     title: "DigitalCare Management System",
@@ -21,7 +21,7 @@ export const projectsList = [
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
     image: "/digital-care-information-system.png",
-    category: "Frontend"
+    category: "Fullstack"
   },
   {
     title: "PPLG2PUNK Class Website",
@@ -51,7 +51,7 @@ export const projectsList = [
     problem: "The client needed a digital storefront to display high-resolution beauty portfolios and book reservations without relying on messaging apps.",
     solution: "Created a glassmorphic React landing page with an integrated gallery carousel, price calculator, and email booking automation.",
     tags: ["React Js", "Tailwind CSS"],
-    demoLink: "#",
+    demoLink: "https://batrisha-mua.vercel.app",
     githubLink: "https://github.com/Dandyskie",
     image: "/batrisha-mua.png",
     category: "Frontend"
@@ -62,7 +62,7 @@ export const projectsList = [
     problem: "As an aspiring developer, I had no central location to showcase my projects, resume achievements, and professional contact paths.",
     solution: "Created a lightweight responsive React application highlighting basic skills, quick links to GitHub projects, and simple contact forms.",
     tags: ["React Js", "Tailwind CSS"],
-    demoLink: "#",
+    demoLink: "https://dandyskie-app.vercel.app/",
     githubLink: "https://github.com/Dandyskie",
     image: "/web-porto1.png",
     category: "Frontend"
@@ -73,7 +73,7 @@ export const projectsList = [
     problem: "A local food-truck coffee shop needed to display their menu online for nearby customers but had no budget for complex web platforms.",
     solution: "Designed a simple, fast-loading static menu page using HTML and CSS optimized for mobile layouts to allow quick viewing in food trucks.",
     tags: ["HTML", "CSS"],
-    demoLink: "#",
+    demoLink: "https://maskolingcarcoffe.vercel.app/",
     githubLink: "https://github.com/Dandyskie",
     image: "/maskoling-car-coffee.png",
     category: "Frontend"
@@ -83,8 +83,8 @@ export const projectsList = [
     description: "A digital showcase landing page built to promote local snack variants and direct online ordering.",
     problem: "The business lacked a central menu catalog for clients to browse flavors, read testimonials, and initiate WhatsApp checkout steps.",
     solution: "Developed a clean product showcase page with dynamic flavor grids, pricing information, and integrated messaging triggers.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    demoLink: "#",
+    tags: ["React Js", "Tailwind CSS"],
+    demoLink: "https://abon-ps-mas.vercel.app/",
     githubLink: "https://github.com/Dandyskie",
     image: "/abon-ps-mas.png",
     category: "Frontend"
@@ -95,7 +95,7 @@ export const projectsList = [
     problem: "Adventure travelers had to toggle multiple static lists to locate camping spots, reviews, and route conditions.",
     solution: "Created a responsive map application displaying travel locations, custom filters, and detail panels with travel photos.",
     tags: ["React Js", "Tailwind CSS"],
-    demoLink: "#",
+    demoLink: "https://petaadventure.vercel.app/",
     githubLink: "https://github.com/Dandyskie",
     image: "/peta-adventure.png",
     category: "Frontend"

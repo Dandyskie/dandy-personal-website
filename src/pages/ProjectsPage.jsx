@@ -30,9 +30,11 @@ const ProjectsPage = () => {
       {/* Tabs */}
       <div className="flex gap-2">
         {categories.map(cat => (
-          <button
+          <motion.button
             key={cat}
             onClick={() => setActiveTab(cat)}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             className={`px-4 py-1.5 rounded-full text-xs font-semibold font-space transition-colors cursor-pointer border ${
               activeTab === cat 
                 ? 'bg-primary text-white border-primary' 
@@ -40,15 +42,19 @@ const ProjectsPage = () => {
             }`}
           >
             {cat}
-          </button>
+          </motion.button>
         ))}
       </div>
 
       {/* Projects Grid with ScrollReveal */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredProjects.map((project, idx) => (
-          <ScrollReveal key={idx} delay={idx % 2 === 0 ? 0.05 : 0.15} yOffset={25}>
-            <div className="glassmorphism rounded-xl overflow-hidden flex flex-col justify-between h-full group hover:shadow-lg transition-all hover:border-primary/30">
+          <ScrollReveal key={idx} variant="spring-up" delay={(idx % 2) * 0.1} yOffset={35}>
+            <motion.div 
+              whileHover={{ y: -6, scale: 1.01, boxShadow: "0 10px 30px rgba(59, 130, 246, 0.08)" }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="glassmorphism rounded-xl overflow-hidden flex flex-col justify-between h-full group hover:border-primary/40 transition-colors duration-300"
+            >
               <div>
                 {/* Project Screenshot visual preview */}
                 <div className="relative aspect-video w-full overflow-hidden border-b border-border-custom bg-slate-900 flex items-center justify-center">
@@ -93,7 +99,7 @@ const ProjectsPage = () => {
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </ScrollReveal>
         ))}
       </div>
