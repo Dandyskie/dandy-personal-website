@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Sun, Moon, Search, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import CommandPalette from './CommandPalette';
 
 const Navbar = () => {
@@ -69,6 +70,18 @@ const Navbar = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Prevent scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Projects', path: '/projects' },
@@ -85,7 +98,7 @@ const Navbar = () => {
       />
       
       <nav 
-        className={`fixed left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
+        className={`fixed left-0 right-0 z-40 transition-all duration-300 ease-in-out ${
           showNavbar ? 'translate-y-0' : '-translate-y-full'
         } ${
           isScrolled 
@@ -96,6 +109,7 @@ const Navbar = () => {
         <div className="container max-w-7xl mx-auto px-6 flex justify-between items-center">
           <Link 
             to="/"
+            onClick={() => setIsMobileMenuOpen(false)}
             className="text-2xl font-bold font-space text-text-main tracking-tight hover:scale-105 transition-transform"
           >
             Dandy<span className="text-primary">.dev</span>
@@ -139,53 +153,99 @@ const Navbar = () => {
           </div>
 
           {/* Mobile toggles */}
-          <div className="flex md:hidden items-center gap-4">
+          <div className="flex md:hidden items-center gap-3">
             <button
               onClick={toggleTheme}
-              className="p-1.5 rounded-full border border-border-custom text-text-main cursor-pointer"
+              className="p-2 rounded-full border border-border-custom text-text-main cursor-pointer"
               aria-label="Toggle Theme"
             >
               {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-650" />}
             </button>
             <button
               onClick={() => setIsPaletteOpen(true)}
-              className="p-1.5 rounded-full border border-border-custom text-text-main cursor-pointer"
+              className="p-2 rounded-full border border-border-custom text-text-main cursor-pointer"
               aria-label="Search Console"
             >
               <Search className="w-4 h-4" />
             </button>
             <button 
-              className="text-text-main cursor-pointer"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
+              className="p-2 rounded-full border border-border-custom text-text-main cursor-pointer"
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open menu"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <Menu className="w-4 h-4" />
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        <div 
-          className={`md:hidden absolute top-full left-0 w-full glassmorphism border-b border-border-custom overflow-hidden transition-all duration-300 ease-in-out ${
-            isMobileMenuOpen ? 'max-h-64 py-6 shadow-xl' : 'max-h-0 py-0'
-          }`}
-        >
-          <div className="flex flex-col items-center gap-6">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.name}
-                to={link.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`font-space text-base font-medium transition-colors ${
-                  location.pathname === link.path ? 'text-primary text-glow font-bold' : 'text-text-main hover:text-primary'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-        </div>
       </nav>
+
+      {/* Mobile Side Drawer Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop with strong blur */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/75 backdrop-blur-md z-50 md:hidden"
+            />
+            
+            {/* Drawer Sliding from Right */}
+            <motion.div 
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 bottom-0 w-72 bg-slate-950/95 border-l border-border-custom backdrop-blur-2xl z-50 p-6 flex flex-col justify-between shadow-2xl md:hidden"
+            >
+              <div className="flex flex-col gap-8">
+                {/* Header inside drawer */}
+                <div className="flex justify-between items-center border-b border-border-custom pb-4">
+                  <span className="font-space text-lg font-bold text-text-main">Menu</span>
+                  <button 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="p-1.5 rounded-full border border-border-custom text-text-muted hover:text-text-main cursor-pointer"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Nav Links */}
+                <div className="flex flex-col gap-5">
+                  {navLinks.map((link, idx) => (
+                    <motion.div
+                      key={link.name}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.05 }}
+                    >
+                      <Link 
+                        to={link.path}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`font-space text-lg font-semibold transition-all block py-2 ${
+                          location.pathname === link.path 
+                            ? 'text-primary text-glow font-bold translate-x-2' 
+                            : 'text-text-main hover:text-primary hover:translate-x-2'
+                        }`}
+                      >
+                        {link.name}
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Drawer Footer info */}
+              <div className="border-t border-border-custom pt-4 flex flex-col gap-2">
+                <span className="text-[10px] font-mono text-text-muted text-center">Dandy.dev // Portfolio 2026</span>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Command Palette Component */}
       <CommandPalette 

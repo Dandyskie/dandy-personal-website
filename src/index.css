@@ -86,4 +86,7 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
 }
