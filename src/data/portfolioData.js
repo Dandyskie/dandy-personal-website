@@ -1,79 +1,108 @@
+export const summaryText = "Frontend Developer with internship experience at PT Edutech Digital Solution, contributing to the development of Hospital Information Systems and Library Information Systems using React.js, Vue.js, JavaScript, Tailwind CSS, Laravel, PHP, and MySQL. Experienced in implementing responsive user interfaces, integrating frontend applications with backend APIs, developing application features, fixing bugs, and collaborating with cross-functional teams using Git-based workflows. A fresh graduate in Software and Game Development (PPLG) from SMK Muhammadiyah 1 Sukoharjo, eager to build modern, scalable, and user-focused web applications while continuously expanding technical expertise.";
+
 export const projectsList = [
   {
     title: "Mutuharjo Library Information System",
-    description: "A web-based library management system designed to manage book collections, borrowing records, and member data efficiently. The system provides features for book inventory management, borrowing and returning tracking, and real-time data updates to help librarians manage resources more effectively.",
+    description: "A web-based library management system designed to manage book collections, borrowing records, and member data efficiently.",
+    problem: "Manual library management at school led to high error rates, slow checkouts, and lack of real-time tracking of book availability.",
+    solution: "Developed an intuitive management dashboard using React.js and Laravel, introducing instant barcode checkouts, automatic overdue alerts, and centralized member search functionality.",
     tags: ["Laravel", "React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
     image: "/library.png",
+    category: "Frontend"
   },
   {
     title: "DigitalCare Management System",
-    description: "A management dashboard built to help administrators monitor and manage digital services efficiently. It provides a structured interface for managing data, viewing analytics, and handling operational activities through a responsive and user-friendly admin panel.",
+    description: "A management dashboard built to help administrators monitor and manage digital services efficiently.",
+    problem: "Service administrators lacked unified analytics to track support tickets, service uptime, and operational issues, leading to delayed escalations.",
+    solution: "Built a comprehensive admin console with Vue.js, Quasar, and Laravel, implementing interactive status cards, live alerts, and instant report generation.",
     tags: ["Laravel", "Vue Js", "Quasar"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
     image: "/dgcare.png",
+    category: "Frontend"
   },
   {
     title: "PPLG2PUNK Class Website",
-    description: "A class profile website created to showcase information about students, organizational structure, and class activities. The website includes a gallery, student profiles, and structured content to present the identity and achievements of the class in a modern and responsive interface.",
+    description: "A class profile website created to showcase information about students, organizational structure, and class activities.",
+    problem: "Students in the PPLG department had no structured space to present their group work, class structure, and shared course repositories.",
+    solution: "Designed and deployed a responsive portal with React and Tailwind CSS featuring a dynamic class directory, project galleries, and direct GitHub links.",
     tags: ["React Js", "Tailwind CSS"],
     demoLink: "https://pplg2punk.vercel.app",
     githubLink: "https://github.com/Dandyskie",
     image: "/class.png",
+    category: "Frontend"
   },
   {
     title: "Safe Payment Guard Landing Page",
-    description: "A modern landing page designed to introduce a secure digital payment solution. The page focuses on presenting product features, benefits, and trust indicators through a clean layout and responsive design to enhance user engagement.",
+    description: "A modern landing page designed to introduce a secure digital payment solution.",
+    problem: "Customers were hesitant to adopt new digital wallets due to unclear security protocols and lack of descriptive explanations.",
+    solution: "Created a high-fidelity landing page with HTML/CSS and Bootstrap focusing on micro-interactions, responsive benefit grids, and visual trust markers.",
     tags: ["HTML", "CSS", "Bootstrap"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
     image: "/spg.png",
+    category: "Frontend"
   },
   {
     title: "Batrisha Make Up",
-    description: "Batrisha Makeup is a modern landing page created to showcase a makeup artist service professionally online. The website provides information about services, portfolios, and contact details with a clean and responsive design to help attract potential clients and improve online presence.",
+    description: "A makeup artist portfolio landing page showcasing services, pricing, and visual work.",
+    problem: "The client needed a digital storefront to display high-resolution beauty portfolios and book reservations without relying on messaging apps.",
+    solution: "Created a glassmorphic React landing page with an integrated gallery carousel, price calculator, and email booking automation.",
     tags: ["React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
     image: "/batrish.png",
+    category: "Frontend"
   },
   {
     title: "Personal Website V1",
-    description: "The first version of my personal portfolio website built to introduce myself as a developer and showcase my projects. The website presents my profile, skills, and project portfolio in a simple and responsive interface.",
+    description: "The first version of my personal portfolio website built to introduce myself as a developer and showcase my projects.",
+    problem: "As an aspiring developer, I had no central location to showcase my projects, resume achievements, and professional contact paths.",
+    solution: "Created a lightweight responsive React application highlighting basic skills, quick links to GitHub projects, and simple contact forms.",
     tags: ["React Js", "Tailwind CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
     image: "/porto1.png",
+    category: "Frontend"
   },
   {
     title: "Maskoling Car Coffe",
-    description: "Maskoling Car Coffee is a modern landing page project created for a street coffee business to help introduce and promote the brand online. The website provides information about the menu, business concept, location, and contact details with a clean and responsive design, making it easier for customers to discover and learn more about the business.",
-    tags: ["HTML", "CSS", ],
+    description: "A menu and promo page built for a street coffee shop business to promote and display services.",
+    problem: "A local food-truck coffee shop needed to display their menu online for nearby customers but had no budget for complex web platforms.",
+    solution: "Designed a simple, fast-loading static menu page using HTML and CSS optimized for mobile layouts to allow quick viewing in food trucks.",
+    tags: ["HTML", "CSS"],
     demoLink: "#",
     githubLink: "https://github.com/Dandyskie",
     image: "/mcc.png",
-  },
+    category: "Frontend"
+  }
 ];
 
 export const experienceList = [
   {
     role: "Frontend Developer Intern",
     company: "PT Edutech Digital Solution",
-    period: "Aug 2025 - Present",
-    description: "Assisted in building responsive web interfaces, implementing modern design systems, and optimizing website performance for educational platforms.",
-    skills: ["React", "Tailwind CSS", "JavaScript", "Next Js", "TypeScript", "Vue Js", "Laravel"]
-  },
-  {
-    role: "Web Development Student",
-    company: "SMK Muhammadiyah 1 Sukoharjo",
-    period: "2023 - Present",
-    description: "Learning full-stack web development principles, database design, and modern frontend frameworks through practical project-based assignments.",
-    skills: ["HTML", "CSS", "PHP", "Laravel", "MySQL", "Flutter", "Dart", "Bootstrap", "JavaScript", "Figma"]
-  },
+    period: "Jun 2025 - Apr 2026",
+    description: "Contributed to the development of multiple web-based information systems in a collaborative development environment, working closely with backend developers and senior engineers to deliver responsive and user-friendly web applications. Assisted in building Hospital Information Systems and Library Information Systems.",
+    skills: ["React.js", "Vue.js", "JavaScript", "Tailwind CSS", "Laravel", "PHP", "MySQL", "Git"]
+  }
 ];
 
-export const techStackList = [
-  "HTML", "CSS", "JavaScript", "React Js", "Tailwind CSS", "Laravel", "Git", "Figma", "MySQL", "PHP", "Flutter", "Dart", "Bootstrap", "Next Js", "TypeScript", "Vue Js", "Quasar" , "Astro Js", "Firebase" , "React Native", "Swift", "Python"
+export const educationList = [
+  {
+    school: "SMK Muhammadiyah 1 Sukoharjo",
+    period: "Jul 2023 - May 2026",
+    field: "Software and Game Development (PPLG)",
+    grade: "84.36 / 100",
+    description: "Focused on programming, web development, and information systems with a practical hands-on curriculum."
+  }
 ];
+
+export const skillsCategories = {
+  Frontend: ["JavaScript", "HTML5", "CSS3", "Typescript", "Tailwind CSS", "React Js", "Next Js", "Vue Js"],
+  Backend: ["Python", "Node Js", "PHP", "Laravel", "Express Js", "REST API"],
+  Tools: ["Git & GitHub", "Gitlab", "Postman", "Figma", "NPM", "Composer"],
+  "Databases & ORM": ["MySQL", "PostgreSQL", "SQLite", "Prisma"]
+};
