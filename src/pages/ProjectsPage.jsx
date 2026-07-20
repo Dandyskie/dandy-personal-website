@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projectsList } from '../data/portfolioData';
 import { ExternalLink, GitBranch, FolderOpen, X } from 'lucide-react';
+import ScrollReveal from '../components/ScrollReveal';
 
 const ProjectsPage = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -43,44 +44,57 @@ const ProjectsPage = () => {
         ))}
       </div>
 
+      {/* Projects Grid with ScrollReveal */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredProjects.map((project, idx) => (
-          <div 
-            key={idx}
-            className="glassmorphism rounded-xl overflow-hidden flex flex-col justify-between group hover:shadow-lg transition-all hover:border-primary/30"
-          >
-            <div className="p-6 flex flex-col gap-4">
-              <div className="flex items-center gap-2 text-primary">
-                <FolderOpen className="w-5 h-5" />
-                <span className="text-xs font-mono tracking-wider font-bold">CASE STUDY</span>
+          <ScrollReveal key={idx} delay={idx % 2 === 0 ? 0.05 : 0.15} yOffset={25}>
+            <div className="glassmorphism rounded-xl overflow-hidden flex flex-col justify-between h-full group hover:shadow-lg transition-all hover:border-primary/30">
+              <div>
+                {/* Project Screenshot visual preview */}
+                <div className="relative aspect-video w-full overflow-hidden border-b border-border-custom bg-slate-900 flex items-center justify-center">
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105 pointer-events-none"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-85" />
+                </div>
+                
+                <div className="p-5 flex flex-col gap-3.5">
+                  <div className="flex items-center gap-2 text-primary">
+                    <FolderOpen className="w-4 h-4" />
+                    <span className="text-[10px] font-mono tracking-wider font-bold uppercase">CASE STUDY</span>
+                  </div>
+                  <h3 className="font-space text-lg font-bold text-text-main group-hover:text-primary transition-colors">{project.title}</h3>
+                  <p className="text-xs text-text-muted line-clamp-3 leading-relaxed">{project.description}</p>
+                  <div className="flex flex-wrap gap-1.5 mt-1">
+                    {project.tags.map((t, tIdx) => (
+                      <span key={tIdx} className="text-[10px] px-2 py-0.5 bg-primary/10 text-primary rounded-full font-mono">{t}</span>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <h3 className="font-space text-xl font-bold text-text-main">{project.title}</h3>
-              <p className="text-sm text-text-muted line-clamp-3">{project.description}</p>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {project.tags.map((t, tIdx) => (
-                  <span key={tIdx} className="text-xs px-2.5 py-1 bg-primary/10 text-primary rounded-full font-mono">{t}</span>
-                ))}
-              </div>
-            </div>
-            <div className="p-4 border-t border-border-custom bg-black/5 flex items-center justify-between">
-              <button
-                onClick={() => setSelectedProject(project)}
-                className="text-xs font-semibold text-primary hover:text-primary-hover flex items-center gap-1 cursor-pointer"
-              >
-                Read Case Study &rarr;
-              </button>
-              <div className="flex items-center gap-3">
-                <a href={project.githubLink} target="_blank" rel="noreferrer" className="text-text-muted hover:text-text-main" aria-label="GitHub Repository">
-                  <GitBranch className="w-4 h-4" />
-                </a>
-                {project.demoLink !== '#' && (
-                  <a href={project.demoLink} target="_blank" rel="noreferrer" className="text-text-muted hover:text-text-main" aria-label="Live Demo Link">
-                    <ExternalLink className="w-4 h-4" />
+              
+              <div className="p-4 border-t border-border-custom bg-black/5 flex items-center justify-between mt-auto">
+                <button
+                  onClick={() => setSelectedProject(project)}
+                  className="text-xs font-semibold text-primary hover:text-primary-hover flex items-center gap-1 cursor-pointer"
+                >
+                  Read Case Study &rarr;
+                </button>
+                <div className="flex items-center gap-3">
+                  <a href={project.githubLink} target="_blank" rel="noreferrer" className="text-text-muted hover:text-text-main" aria-label="GitHub Repository">
+                    <GitBranch className="w-4 h-4" />
                   </a>
-                )}
+                  {project.demoLink !== '#' && (
+                    <a href={project.demoLink} target="_blank" rel="noreferrer" className="text-text-muted hover:text-text-main" aria-label="Live Demo Link">
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         ))}
       </div>
 
