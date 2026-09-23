@@ -1,92 +1,93 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-space: "Space Grotesk", sans-serif;
-  --font-archivo: "Archivo", sans-serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  /* Theme colors */
-  --color-primary: #3b82f6;
-  --color-primary-hover: #2563eb;
-  --color-accent: #38bdf8;
+  /* Core Palette — White / Blue / Grey */
+  --color-cream: #FAFAF7;
+  --color-card-bg: #FFFFFF;
+  --color-charcoal: #111111;
+  --color-text-main: #111111;
+  --color-text-muted: #666666;
+  --color-border-subtle: #E8E8E2;
 
-  /* Dynamic theme mapping */
-  --color-bg-app: var(--bg-app);
-  --color-text-main: var(--text-main);
-  --color-text-muted: var(--text-muted);
-  --color-border-custom: var(--border-custom);
-  --color-card-bg: var(--card-bg);
-}
+  /* Light Blue Accent */
+  --color-accent-blue: #38BDF8;
+  --color-accent-blue-deep: #0EA5E9;
+  --color-accent-blue-hover: #0284C7;
+  --color-accent-blue-soft: #E0F2FE;
 
-:root {
-  --bg-app: #fafafa;
-  --text-main: #09090b;
-  --text-muted: #71717a;
-  --border-custom: rgba(9, 9, 11, 0.08);
-  --card-bg: rgba(255, 255, 255, 0.7);
-}
-
-.dark {
-  --bg-app: #020617;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --border-custom: rgba(255, 255, 255, 0.08);
-  --card-bg: rgba(15, 23, 42, 0.4);
+  /* Dark Surface */
+  --color-dark-surface: #0B0B0E;
+  --color-dark-card-border: #23232C;
+  --color-dark-text-muted: #8E8E9F;
 }
 
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+
   body {
-    background-color: var(--bg-app);
-    color: var(--text-main);
-    font-family: var(--font-archivo);
+    background-color: var(--color-cream);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.6;
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-space);
+
+  ::selection {
+    background-color: #38BDF8;
+    color: #111111;
+  }
+
+  h1, h2, h3, h4 {
+    color: var(--color-charcoal);
     letter-spacing: -0.02em;
+  }
+
+  /* Hide fixed header smoothly when project modal is active */
+  body.modal-open header {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(-20px) !important;
+    transition: opacity 0.25s ease, transform 0.25s ease !important;
   }
 }
 
 @layer utilities {
-  .bg-grid-pattern {
-    background-image: 
-      linear-gradient(var(--grid-color) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  :root {
-    --grid-color: rgba(9, 9, 11, 0.03);
-  }
-  .dark {
-    --grid-color: rgba(255, 255, 255, 0.02);
+  /* Hero Background Glow */
+  .bg-hero-glow {
+    background: radial-gradient(circle at 50% 35%, rgba(56, 189, 248, 0.5) 0%, rgba(186, 230, 253, 0.25) 35%, rgba(250, 250, 247, 0) 65%);
   }
 
-  .bg-radial-lighting {
-    background: radial-gradient(circle at top, rgba(59, 130, 246, 0.15), transparent 60%);
+  /* Auto-scroll Marquee Animation */
+  .marquee-track {
+    animation: marquee-scroll 30s linear infinite;
   }
 
-  .text-glow {
-    text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+  .marquee-track:hover {
+    animation-play-state: paused;
   }
 
-  .glassmorphism {
-    backdrop-filter: blur(12px);
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-custom);
+  @keyframes marquee-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
+  /* Scrollbar hiding */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
-  }
-  .preserve-3d {
-    transform-style: preserve-3d;
   }
 }

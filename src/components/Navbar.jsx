@@ -1,258 +1,163 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Sun, Moon, Search, Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import CommandPalette from './CommandPalette';
+import { useTranslation } from 'react-i18next';
+import MobileDrawer from './MobileDrawer';
+
+const NAV_KEYS = [
+  { key: 'home', href: '#hero' },
+  { key: 'about', href: '#about' },
+  { key: 'experience', href: '#experience' },
+  { key: 'projects', href: '#projects' },
+  { key: 'gallery', href: '#gallery' },
+  { key: 'contact', href: '#contact' },
+];
 
 const Navbar = () => {
-  const location = useLocation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language?.startsWith('id') ? 'id' : 'en';
+
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(true); // Cyber-dark defaults to true
-  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
-  const [scrollPercent, setScrollPercent] = useState(0);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [showNavbar, setShowNavbar] = useState(true);
-
-  // Sync HTML class on load
-  useEffect(() => {
-    document.documentElement.classList.add('dark');
-  }, []);
-
-  const toggleTheme = () => {
-    setIsDark(prev => {
-      const next = !prev;
-      if (next) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      return next;
-    });
-  };
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Smart Hide/Reveal Navbar
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setShowNavbar(false); // Hide on scroll down
-      } else {
-        setShowNavbar(true); // Reveal on scroll up
-      }
-      
-      setIsScrolled(currentScrollY > 20);
-      setLastScrollY(currentScrollY);
-
-      // Progress bar percentage calculation
-      const totalScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalScrollHeight > 0) {
-        setScrollPercent((currentScrollY / totalScrollHeight) * 100);
-      } else {
-        setScrollPercent(0);
-      }
+      setIsScrolled(window.scrollY > 30);
     };
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
-
-  // Command palette hotkey listener
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        setIsPaletteOpen(prev => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Prevent scroll when mobile menu is open
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMobileMenuOpen]);
+    const sections = NAV_KEYS.map(link => document.querySelector(link.href)).filter(Boolean);
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Projects', path: '/projects' },
-    { name: 'Experience', path: '/experience' },
-    { name: 'Contact', path: '/contact' },
-  ];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -60% 0px', threshold: 0 }
+    );
+
+    sections.forEach((sec) => observer.observe(sec));
+    return () => observer.disconnect();
+  }, []);
+
+  const handleScrollTo = (href) => {
+    const target = document.querySelector(href);
+    if (!target) return;
+    const navHeight = 85;
+    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+  };
+
+  const navLinks = NAV_KEYS.map((item) => ({
+    label: t(`nav.${item.key}`),
+    href: item.href,
+  }));
 
   return (
     <>
-      {/* Scroll Progress Bar */}
-      <div 
-        className="fixed top-0 left-0 h-1 bg-primary z-[60] transition-all duration-100" 
-        style={{ width: `${scrollPercent}%` }}
-      />
-      
-      <nav 
-        className={`fixed left-0 right-0 z-40 transition-all duration-300 ease-in-out ${
-          showNavbar ? 'translate-y-0' : '-translate-y-full'
-        } ${
-          isScrolled 
-            ? 'py-4 glassmorphism border-b border-border-custom shadow-md' 
-            : 'py-6 bg-transparent'
+      <header
+        className={`fixed z-40 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isScrolled
+            ? 'top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-4xl rounded-full bg-white/85 backdrop-blur-xl border border-[#E8E8E2] shadow-[0_8px_30px_rgb(0,0,0,0.06)] py-2.5 px-6'
+            : 'top-0 left-0 right-0 w-full bg-transparent py-6 px-6 md:px-12'
         }`}
       >
-        <div className="container max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <Link 
-            to="/"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-2xl font-bold font-space text-text-main tracking-tight hover:scale-105 transition-transform"
+        <div className="w-full flex items-center justify-between">
+          {/* Brand */}
+          <a
+            href="#hero"
+            onClick={(e) => { e.preventDefault(); handleScrollTo('#hero'); }}
+            className="font-sans text-lg font-bold text-[#111] hover:opacity-80 transition-opacity tracking-tight cursor-pointer shrink-0"
           >
-            Dandy<span className="text-primary">.dev</span>
-          </Link>
+            Dandy<span className="text-[#0284C7]">.</span>
+          </a>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.name}
-                to={link.path}
-                className={`font-space text-sm font-medium transition-all duration-300 relative group ${
-                  location.pathname === link.path ? 'text-primary text-glow font-bold' : 'text-text-muted hover:text-text-main'
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.replace('#', '');
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => { e.preventDefault(); handleScrollTo(link.href); }}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-sans transition-all cursor-pointer ${
+                    isActive
+                      ? 'bg-[#111] text-white font-semibold shadow-xs'
+                      : 'text-[#666] hover:text-[#111] hover:bg-black/5'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Desktop CTA & Language Toggle */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* Language Switcher: EN | ID */}
+            <div className="flex items-center p-0.5 rounded-full border border-[#E8E8E2] bg-black/[0.03]">
+              <button
+                type="button"
+                onClick={() => i18n.changeLanguage('en')}
+                className={`px-2.5 py-1 rounded-full text-[11px] font-sans font-bold transition-all cursor-pointer ${
+                  currentLang === 'en'
+                    ? 'bg-white text-[#111] shadow-2xs'
+                    : 'text-[#777] hover:text-[#111]'
                 }`}
+                title="Switch to English"
               >
-                {link.name}
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                  location.pathname === link.path ? 'w-full' : 'w-0 group-hover:w-full'
-                }`} />
-              </Link>
-            ))}
-            
-            {/* Cmd+K trigger */}
-            <button 
-              onClick={() => setIsPaletteOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-text-muted hover:text-text-main rounded-md border border-border-custom glassmorphism transition-all cursor-pointer"
-              title="Search / Actions"
-            >
-              <Search className="w-3.5 h-3.5" />
-              <kbd className="font-mono text-[10px]">Ctrl+K</kbd>
-            </button>
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={() => i18n.changeLanguage('id')}
+                className={`px-2.5 py-1 rounded-full text-[11px] font-sans font-bold transition-all cursor-pointer ${
+                  currentLang === 'id'
+                    ? 'bg-white text-[#111] shadow-2xs'
+                    : 'text-[#777] hover:text-[#111]'
+                }`}
+                title="Ganti ke Bahasa Indonesia"
+              >
+                ID
+              </button>
+            </div>
 
-            {/* Theme toggler */}
+            {/* Let's Talk CTA (Replaces Pricelist) */}
             <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full border border-border-custom hover:bg-primary/10 transition-colors text-text-main cursor-pointer"
-              aria-label="Toggle Theme"
+              type="button"
+              onClick={() => handleScrollTo('#contact')}
+              className="px-4 py-2 rounded-full bg-[#111] hover:bg-[#222] text-white text-xs font-sans font-semibold transition-all shadow-xs cursor-pointer flex items-center gap-2 group"
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-650" />}
+              <span>{t('nav.letsTalk')}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] group-hover:scale-125 transition-transform" />
             </button>
           </div>
 
-          {/* Mobile toggles */}
-          <div className="flex md:hidden items-center gap-3">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full border border-border-custom text-text-main cursor-pointer"
-              aria-label="Toggle Theme"
-            >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-650" />}
-            </button>
-            <button
-              onClick={() => setIsPaletteOpen(true)}
-              className="p-2 rounded-full border border-border-custom text-text-main cursor-pointer"
-              aria-label="Search Console"
-            >
-              <Search className="w-4 h-4" />
-            </button>
-            <button 
-              className="p-2 rounded-full border border-border-custom text-text-main cursor-pointer"
-              onClick={() => setIsMobileMenuOpen(true)}
-              aria-label="Open menu"
-            >
-              <Menu className="w-4 h-4" />
-            </button>
-          </div>
+          {/* Mobile Hamburger */}
+          <button
+            type="button"
+            onClick={() => setIsDrawerOpen(true)}
+            className="w-10 h-10 rounded-full border border-[#ddd] bg-white/80 lg:hidden flex flex-col items-center justify-center gap-1.5 cursor-pointer"
+            aria-label="Open menu"
+          >
+            <span className="w-4 h-[1.5px] bg-[#111]" />
+            <span className="w-4 h-[1.5px] bg-[#111]" />
+          </button>
         </div>
-      </nav>
+      </header>
 
-      {/* Mobile Side Drawer Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
-            {/* Backdrop with strong blur */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/75 backdrop-blur-md z-50 md:hidden"
-            />
-            
-            {/* Drawer Sliding from Right */}
-            <motion.div 
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-72 bg-slate-950/95 border-l border-border-custom backdrop-blur-2xl z-50 p-6 flex flex-col justify-between shadow-2xl md:hidden"
-            >
-              <div className="flex flex-col gap-8">
-                {/* Header inside drawer */}
-                <div className="flex justify-between items-center border-b border-border-custom pb-4">
-                  <span className="font-space text-lg font-bold text-text-main">Menu</span>
-                  <button 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-1.5 rounded-full border border-border-custom text-text-muted hover:text-text-main cursor-pointer"
-                    aria-label="Close menu"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-
-                {/* Nav Links */}
-                <div className="flex flex-col gap-5">
-                  {navLinks.map((link, idx) => (
-                    <motion.div
-                      key={link.name}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.05 }}
-                    >
-                      <Link 
-                        to={link.path}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className={`font-space text-lg font-semibold transition-all block py-2 ${
-                          location.pathname === link.path 
-                            ? 'text-primary text-glow font-bold translate-x-2' 
-                            : 'text-text-main hover:text-primary hover:translate-x-2'
-                        }`}
-                      >
-                        {link.name}
-                      </Link>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Drawer Footer info */}
-              <div className="border-t border-border-custom pt-4 flex flex-col gap-2">
-                <span className="text-[10px] font-mono text-text-muted text-center">Dandy.dev // Portfolio 2026</span>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-      {/* Command Palette Component */}
-      <CommandPalette 
-        isOpen={isPaletteOpen} 
-        onClose={() => setIsPaletteOpen(false)} 
-        toggleTheme={toggleTheme} 
-        isDark={isDark} 
+      <MobileDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        navLinks={navLinks}
+        activeSection={activeSection}
+        onSelectLink={handleScrollTo}
       />
     </>
   );
