@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Hero from '../sections/Hero';
 import TechMarquee from '../sections/TechMarquee';
 import AboutSection from '../sections/AboutSection';
@@ -7,11 +7,8 @@ import SelectedWorks from '../sections/SelectedWorks';
 import GallerySection from '../sections/GallerySection';
 import ServicesCta from '../sections/ServicesCta';
 import ContactSection from '../sections/ContactSection';
-import ProjectModal from '../components/ProjectModal';
 
 const Home = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
-
   return (
     <div className="flex flex-col w-full">
       {/* 1. Hero — Clean intro with photo */}
@@ -26,8 +23,8 @@ const Home = () => {
       {/* 4. Experience — Clean timeline */}
       <ExperienceSection />
 
-      {/* 5. Projects — 2×2 grid */}
-      <SelectedWorks onOpenModal={setSelectedProject} />
+      {/* 5. Projects — Responsive Showcase Grid with Category Filters */}
+      <SelectedWorks />
 
       {/* 6. Gallery — Moments & photos */}
       <GallerySection />
@@ -37,12 +34,6 @@ const Home = () => {
 
       {/* 8. Contact — Form + info */}
       <ContactSection />
-
-      {/* Project Modal */}
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
     </div>
   );
 };

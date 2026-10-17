@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import MobileDrawer from './MobileDrawer';
 
@@ -13,6 +14,8 @@ const NAV_KEYS = [
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const currentLang = i18n.language?.startsWith('id') ? 'id' : 'en';
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,6 +31,11 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
+    if (location.pathname !== '/') {
+      setActiveSection('');
+      return;
+    }
+
     const sections = NAV_KEYS.map(link => document.querySelector(link.href)).filter(Boolean);
 
     const observer = new IntersectionObserver(
@@ -43,9 +51,14 @@ const Navbar = () => {
 
     sections.forEach((sec) => observer.observe(sec));
     return () => observer.disconnect();
-  }, []);
+  }, [location.pathname]);
 
   const handleScrollTo = (href) => {
+    if (location.pathname !== '/') {
+      navigate('/' + href);
+      return;
+    }
+
     const target = document.querySelector(href);
     if (!target) return;
     const navHeight = 85;

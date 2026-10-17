@@ -25,18 +25,41 @@
  * ====================================================================
  */
 
-import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import ProjectDetail from './pages/ProjectDetail';
 import SplashCursor from './components/SplashCursor';
+
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    } else {
+      const element = document.querySelector(hash);
+      if (element) {
+        const navHeight = 85;
+        const targetPos = element.getBoundingClientRect().top + window.pageYOffset - navHeight;
+        window.scrollTo({ top: targetPos, behavior: 'smooth' });
+      }
+    }
+  }, [pathname, hash]);
+
+  return null;
+}
 
 function App() {
   const [isMounted] = useState(() => typeof window !== 'undefined');
 
   return (
     <div className="min-h-screen bg-[#F5F5F0] text-[#1A1A1A] font-sans antialiased relative selection:bg-[#38BDF8] selection:text-white">
+      {/* Scroll restoration helper */}
+      <ScrollToTop />
+
       {/* React Bits: Fluid Interactive Splash Cursor */}
       {isMounted && (
         <SplashCursor
@@ -53,11 +76,13 @@ function App() {
       {/* Global Fixed Navbar */}
       <Navbar />
 
-      {/* Main Single-Page Content */}
+      {/* Main Single-Page Content & Dedicated Pages */}
       <main className="relative z-10 w-full">
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Catch-all fallback agar URL langsung scroll ke Home */}
+          <Route path="/project/:slug" element={<ProjectDetail />} />
+          <Route path="/portfolio/:slug" element={<ProjectDetail />} />
+          {/* Catch-all fallback */}
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
